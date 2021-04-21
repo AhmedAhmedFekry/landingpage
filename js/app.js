@@ -8,7 +8,7 @@ class Section {
     // make the content html for every section created 
     get seactionHtmlConten(){
         return `
-        <section id="section${this.last_id}" data-nav="section ${this.last_id}" class="active-class">
+        <section id="section${this.last_id}" data-n="section ${this.last_id}" class="activeClass">
         <div class="landing__container">
         <h2>Section ${this.last_id}</h2>
         <p>tttttttttttttttttttttttttttttttttttttttttttttttt</p>
@@ -26,28 +26,28 @@ class Section {
 
 
 // class for navbar 
-class Navbar {
+class Nav {
     // menu elment select by id 
     menuElement = document.getElementById('navbar__list');
     buildMenu(){
         this.menuElement.innerHTML='';
         document.querySelectorAll('section').forEach(element =>{
-            this.menuElement.insertAdjacentHTML("beforeend",`<li> <a class="menu__link" href="#${element.id}" data-section-id="${element.id}" >${element.dataset.nav}</a></li>`);
+            this.menuElement.insertAdjacentHTML("beforeend",`<li> <a class="menu__link" href="#${element.id}" data-section-id="${element.id}" >${element.dataset.n}</a></li>`);
             
         });
-        this.goToSection();
+        this.to_section();
     }
-    goToSection(){
+    to_section(){
         this.menuElement.addEventListener('click',function(event){
             event.preventDefault();
             document.getElementById(event.target.dataset.sectionId).scrollIntoView({behavior:'smooth'});
-            addActiveClass(event.target.dataset.sectionId)
+            activeClass(event.target.dataset.sectionId)
         });
     }
 }
 const section = new Section();
-const menu = new Navbar()
-const goToTopElement = document.getElementById('scrollToTop');
+const menu = new Nav()
+const TopElement = document.getElementById('scrollToTop');
 
 function new_section(){
     section.new_section();
@@ -57,7 +57,7 @@ function new_section(){
 // function to scroll to top 
 
 function scrollToTop(){
-    goToTopElement.addEventListener('click', ()=>{
+    TopElement.addEventListener('click', ()=>{
         window.scrollTo({
             top:0
         })
@@ -68,10 +68,10 @@ function scrollToTop(){
 //  section_on_screen
 function section_on_screen(element,buffer){
     buffer = typeof buffer ==='undefined' ? 0 : buffer;
-    const bounding=element.getBoundingClientRect();
-    if (bounding.top >= buffer && bounding.left && buffer.right <= 
+    const b=element.getBoundingClientRect();
+    if (b.top >= buffer && b.left && buffer.right <= 
         ((window.innerWidth || document.documentElement.clientWidth) -buffer) &&
-        bounding.bottom <= ((window.innerHeight || document.documentElement.clientHeight) -buffer ) ){
+        b.bottom <= ((window.innerHeight || document.documentElement.clientHeight) -buffer ) ){
             return true
         } else{
             return false
@@ -84,27 +84,28 @@ window.addEventListener('scroll',()=>{
 
     if (scrollPrecent > 50 ){
         // show scroll top button if the scrollPrecent > 50
-        goToTopElement.classList.remove('display__none');
+        TopElement.classList.remove('noDisplay');
     }
     else {
            // hide scroll top button if the scrollPrecent =< 50 
-        goToTopElement.classList.add('display__none');
+        TopElement.classList.add('noDisplay');
     }
     document.querySelectorAll('section').forEach(element =>{
-        if(section_on_screen(element,-300)){
-            addActiveClass(element.id)
+        if(section_on_screen(element,-200)){
+            activeClass(element.id)
         }
     });
 });
 
 
 // this function for add active class 
-function addActiveClass(id){
-    document.querySelector('.link__active')?.classList.remove('link__active');
-    document.querySelector(`[href="#${id}"]`).classList.add('link__active')
+function activeClass(id){
+    document.querySelector('.activeClass')?.classList.remove('activeClass');
+    document.querySelector(`#${id}`).classList.add('activeClass');
+    document.querySelector('.linkActive')?.classList.remove('linkActive');
+    document.querySelector(`[href="#${id}"]`).classList.add('linkActive')
 
-    document.querySelector('.active-class')?.classList.remove('active-class');
-    document.querySelector(`#${id}`).classList.add('active-class');
+   
     // update location
     setTimeout(()=>{
         window.location.hash = id

@@ -82,7 +82,7 @@ section {
     color: #f1c40f;
 }
 
-.navbar__menu .menu__link:hover, .link__active{
+.navbar__menu .menu__link:hover, .linkActive{
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
@@ -192,18 +192,18 @@ section:nth-of-type(3n + 1) .landing__container::after {
 
 /* ---- Theme State Rules ---- */
 /* Section Active Styles */
-/* Note: your-active-class class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
-section.active-class {
+/* Note: your-activeClass class is applied through javascript. You should update the class here and in the index.html to what you set in your javascript file.  */
+section.activeClass {
     background-color: crimson;
     transition: all .5s ease-in ;
 }
 
-section.your-active-class .landing__container::before {
+section.your-activeClass .landing__container::before {
     opacity: 1;
     animation: rotate 4s linear 0s infinite forwards;
 }
 
-section.your-active-class .landing__container::after {
+section.your-activeClass .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
 }
@@ -242,7 +242,7 @@ section.your-active-class .landing__container::after {
     cursor: pointer;
 }
 
-.display__none{
+.noDisplay{
     display: none;
 }
 .btn{ color: #f1c40f;
